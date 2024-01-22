@@ -1,0 +1,33 @@
+CONTAINERNAME k8s-master
+FROM ubuntu/22.04 -p default -p mk8s
+
+RUN sleep 60
+RUN rm -rf /var/lib/apt/lists/* && apt-get clean
+
+RUN echo "alias kubectl='microk8s kubectl'" >> /root/.bashrc
+RUN echo "alias watch='watch '" >> /root/.bashrc
+RUN touch /root/.bash_profile
+RUN echo "source ~/.bashrc" >> /root/.bash_profile
+
+
+
+RUN touch /etc/resolv.conf
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+RUN systemctl restart systemd-resolved
+#RUN dhclient
+
+### リポジトリアップデート
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update
+RUN dpkg --configure -a
+
+### snapインストール
+RUN apt-get -y install snapd
+RUN snap install core
+RUN snap install snap-store
+
+### k8sインストール
+RUN snap install microk8s --classic && echo "done"
+RUN touch token
+RUN microk8s add-node >> token
+ADDR . /root/token

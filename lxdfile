@@ -1,0 +1,22 @@
+CONTAINERNAME ubuntu-lxd
+FROM ubuntu/22.04
+
+RUN export DEBIAN_FRONTEND=noninteractive
+#RUN timedatectl set-timezone Asia/Tokyo && hostnamectl set-hostname ubuntu-base
+RUN apt-get -y update
+
+RUN dpkg --configure -a
+RUN echo "\n\n\n" | apt-get -y install openssh-server
+
+RUN echo -e "root:password" | chpasswd
+RUN echo -e 'PermitRootLogin  yes' >> /etc/ssh/sshd_config
+
+
+RUN systemctl enable ssh
+RUN systemctl restart ssh
+RUN systemctl start ssh
+
+RUN apt -y install nano snapd
+RUN snap install lxd
+
+NUMBER 3
