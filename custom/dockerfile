@@ -1,0 +1,15 @@
+# ベースイメージを指定します
+FROM python:3.9-slim
+
+# 作業ディレクトリを設定します
+WORKDIR /app
+
+# カスタムコントローラーのPythonファイルをコピーします
+ADD CC2.py /app/CC.py
+ADD kube-config /app/kube-config
+
+# 依存パッケージをインストールします
+RUN pip install pylxd kubernetes
+
+# カスタムコントローラーのPythonスクリプトを実行します
+CMD ["python", "CC.py"]

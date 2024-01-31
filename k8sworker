@@ -4,10 +4,10 @@ FROM ubuntu/22.04 -p default -p mk8s
 RUN sleep 60
 RUN rm -rf /var/lib/apt/lists/* && apt-get clean
 
-RUN touch /etc/resolv.conf
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 RUN systemctl restart systemd-resolved
+RUN echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
+RUN dhclient
 
 ### リポジトリアップデート
 RUN export DEBIAN_FRONTEND=noninteractive

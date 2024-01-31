@@ -10,11 +10,10 @@ RUN touch /root/.bash_profile
 RUN echo "source ~/.bashrc" >> /root/.bash_profile
 
 
-
-RUN touch /etc/resolv.conf
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 RUN systemctl restart systemd-resolved
+RUN echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 #RUN dhclient
+RUN dhclient
 
 ### リポジトリアップデート
 RUN export DEBIAN_FRONTEND=noninteractive
