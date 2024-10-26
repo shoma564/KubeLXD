@@ -1,0 +1,7 @@
+apiVersion: mydomain.com/v1
+kind: LXDContainer
+metadata:
+  name: my-lxd-container
+spec:
+  name: my-container
+  image: ubuntu:20.04

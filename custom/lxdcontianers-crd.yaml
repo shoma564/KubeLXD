@@ -1,0 +1,28 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: lxdcontainers.mydomain.com
+spec:
+  group: mydomain.com
+  names:
+    kind: LXDContainer
+    plural: lxdcontainers
+    singular: lxdcontainer
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                image:
+                  type: string
+                status:
+                  type: string
