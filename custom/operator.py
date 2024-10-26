@@ -3,12 +3,13 @@ import subprocess
 
 # LXDコンテナを作成するための関数
 def create_lxd_container(name, image):
-    command = ["lxc", "launch", image, name]
+    command = ["nohup", "lxc", "launch", image, name, "&"]
     subprocess.run(command, check=True)
+#    print("LXDコンテナを作成")
 
 # LXDコンテナを削除するための関数
 def delete_lxd_container(name):
-    command = ["lxc", "delete", name, "--force"]
+    command = ["nohup", "lxc", "delete", name, "--force", "&"]
     subprocess.run(command, check=True)
 
 # オペレーターのハンドラで、LXDコンテナを作成

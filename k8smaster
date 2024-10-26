@@ -33,7 +33,7 @@ RUN microk8s add-node >> token
 ADDR . /root/token
 
 ### lxd-crdのインストール
-RUN apt -y install python3-pip && pip install kopf kubernetes
+RUN apt -y install python3-pip && pip install kopf kubernetes paramiko
 ADD ./custom/* /root/
 RUN microk8s kubectl apply -f /root/lxdcontianers-crd.yaml
 RUN /root/operator.sh
